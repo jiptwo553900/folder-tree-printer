@@ -10,8 +10,7 @@ LAST_ENTRY_INDENT = "└──"  # the last entry indent
 SHOW_HIDDEN: bool = False  # if True: show hidden folders (.git, etc)
 PRINT_ROOT: bool = True  # if True: print root directory
 
-# Start parts of folder names we want to ignore
-# when show_hidden is False.
+# Prefixes of folders we want to ignore when show_hidden is False.
 HIDDEN: tuple[str, ...] = (".", "__pycache")
 
 # Current directory path.
@@ -68,7 +67,7 @@ def print_tree(root_path: str = ROOT_PATH,
         else:
             # If the entry is a folder: print it ...
             print(f"{ind} {entry_ind} {folder} {entry.name}")
-            # ... and call of print_tree() for this folder.
+            # ... and call print_tree() for this folder.
             print_tree(
                 root_path=f"{root_path}/{entry.name}",
                 ind=(ind + " " + ind),
