@@ -48,7 +48,7 @@ def print_tree(root_path: str = ROOT_PATH,
     if print_root:
         print(f"{entry_ind} {folder} {os.path.basename(root_path)}")
 
-    # Using os.scandir here to get an iterator of os.DirEntry objects
+    # Using os.scandir here to get an iterator of os.DirEntry objects.
     entries_iter = os.scandir(root_path)
 
     # Filter entries if show_hidden is False.
