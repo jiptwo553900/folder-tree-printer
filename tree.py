@@ -48,12 +48,14 @@ def print_tree(root_path: str = ROOT_PATH,
     if print_root:
         print(f"{entry_ind} {folder} {os.path.basename(root_path)}")
 
-    # Check if show_hidden is False and filter entries.
-    if not show_hidden:
-        entries: list[os.DirEntry] = list(
-            filterfalse(is_hidden_folder, os.scandir(root_path)))
+    # Using os.scandir here to get an iterator of os.DirEntry objects
+    entries_iter = os.scandir(root_path)
+
+    # Filter entries if show_hidden is False.
+    if show_hidden:
+        entries: list[os.DirEntry] = list(entries_iter)
     else:
-        entries = list(os.scandir(root_path))
+        entries = list(filterfalse(is_hidden_folder, entries_iter))
 
     for i, entry in enumerate(entries):
 
@@ -64,7 +66,6 @@ def print_tree(root_path: str = ROOT_PATH,
         if entry.is_file():
             # If the entry is a file: print it and go on.
             print(f"{ind} {entry_ind} {file} {entry.name}")
-
         else:
             # If the entry is a folder: print it ...
             print(f"{ind} {entry_ind} {folder} {entry.name}")
