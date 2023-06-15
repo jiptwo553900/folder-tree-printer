@@ -1,4 +1,5 @@
 import os
+from itertools import filterfalse
 
 # Default config values
 FOLDER_ICON = "📁"  # folder icon
@@ -9,8 +10,18 @@ LAST_ENTRY_INDENT = "└──"  # the last entry indent
 SHOW_HIDDEN: bool = False  # if True: show hidden folders (.git, etc)
 PRINT_ROOT: bool = True  # if True: print root directory
 
-# Current directory path
+# Start parts of folder names we want to ignore
+# when show_hidden is False.
+HIDDEN: tuple[str, ...] = (".", "__pycache")
+
+# Current directory path.
 ROOT_PATH: str = os.path.dirname(os.path.realpath(__file__))
+
+
+def is_hidden_folder(entry: os.DirEntry) -> bool:
+    """Check if entry is folder and is hidden"""
+    return (entry.is_dir()
+            and entry.name.startswith(HIDDEN))
 
 
 def print_tree(root_path: str = ROOT_PATH,
@@ -33,11 +44,16 @@ def print_tree(root_path: str = ROOT_PATH,
     :param show_hidden: if True: show hidden folders (.git, .idea, etc)
     :param print_root:  if True: print root directory
     """
-    # First string (print root directory)
+    # First string (print root directory).
     if print_root:
         print(f"{entry_ind} {folder} {os.path.basename(root_path)}")
 
-    entries: list[os.DirEntry] = list(os.scandir(root_path))
+    # Check if show_hidden is False and filter entries.
+    if not show_hidden:
+        entries: list[os.DirEntry] = list(
+            filterfalse(is_hidden_folder, os.scandir(root_path)))
+    else:
+        entries = list(os.scandir(root_path))
 
     for i, entry in enumerate(entries):
 
@@ -49,13 +65,15 @@ def print_tree(root_path: str = ROOT_PATH,
             # If the entry is a file: print it and go on.
             print(f"{ind} {entry_ind} {file} {entry.name}")
 
-        elif not entry.name.startswith(".") or show_hidden:
+        else:
             # If the entry is a folder: print it ...
             print(f"{ind} {entry_ind} {folder} {entry.name}")
             # ... and call of print_tree() for this folder.
-            print_tree(root_path=f"{root_path}/{entry.name}",
-                       ind=(ind + " " + INDENT),
-                       print_root=False)
+            print_tree(
+                root_path=f"{root_path}/{entry.name}",
+                ind=(ind + " " + INDENT),
+                print_root=False
+            )
 
 
 if __name__ == "__main__":
