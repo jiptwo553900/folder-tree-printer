@@ -20,8 +20,7 @@ ROOT_PATH: str = os.path.dirname(os.path.realpath(__file__))
 
 def is_hidden_folder(entry: os.DirEntry) -> bool:
     """Check if entry is folder and is hidden"""
-    return (entry.is_dir()
-            and entry.name.startswith(HIDDEN))
+    return entry.is_dir() and entry.name.startswith(HIDDEN)
 
 
 def print_tree(root_path: str = ROOT_PATH,
