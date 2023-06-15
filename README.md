@@ -1,2 +1,2 @@
-# folder-tree-printer
-Tiny python script for printing any folder structure as a tree.
+# Tree-styled folder structure printer
+Tiny python tool for printing any folder structure as a tree.
