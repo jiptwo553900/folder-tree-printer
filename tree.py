@@ -71,7 +71,7 @@ def print_tree(root_path: str = ROOT_PATH,
             # ... and call of print_tree() for this folder.
             print_tree(
                 root_path=f"{root_path}/{entry.name}",
-                ind=(ind + " " + INDENT),
+                ind=(ind + " " + ind),
                 print_root=False
             )
 
