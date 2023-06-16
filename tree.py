@@ -2,11 +2,11 @@ import os
 from itertools import filterfalse
 
 # Default config values
-FOLDER_ICON = "📁"  # folder icon
-FILE_ICON = "📄"  # file icon
-INDENT = "│  "  # general indent (from left side)
-ENTRY_INDENT = "├──"  # entry indent
-LAST_ENTRY_INDENT = "└──"  # the last entry indent
+FOLDER_ICON: str = "📁"  # folder icon
+FILE_ICON: str = "📄"  # file icon
+INDENT: str = "│  "  # general indent (from left side)
+ENTRY_INDENT: str = "├──"  # entry indent
+LAST_ENTRY_INDENT: str = "└──"  # the last entry indent
 SHOW_HIDDEN: bool = False  # if True: show hidden folders (.git, etc)
 PRINT_ROOT: bool = True  # if True: print root directory
 
@@ -30,7 +30,7 @@ def print_tree(root_path: str = ROOT_PATH,
     Prints the folder tree. Recursive.
 
     :param root_path:   root path, defaults to current dir path
-    :param ind:         ident (from right), must be None on first call
+    :param ind:         ident (from left), must be None on first call
     :param show_hidden: if True: show hidden folders (.git, .idea, etc)
     :param print_root:  if True: print root directory
     """
@@ -74,6 +74,4 @@ def print_tree(root_path: str = ROOT_PATH,
 
 
 if __name__ == "__main__":
-    print_tree(root_path=ROOT_PATH + "/sample_structure", show_hidden=True)
-    print()
-    print_tree(root_path=ROOT_PATH + "/sample_structure")
+    print_tree()
