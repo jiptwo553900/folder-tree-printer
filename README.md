@@ -48,7 +48,7 @@ Output:
 │   └── 📄 tree.py
 ```
 
-### Custom root_path:
+### Custom root path:
 
 You can change `ROOT_PATH`:
 ```
