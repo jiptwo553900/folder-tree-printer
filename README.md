@@ -52,13 +52,21 @@ Output:
 
 You can change `ROOT_PATH`:
 ```
+# Example.
+ROOT_PATH: str = ".."
+
+# Example.
 ROOT_PATH: str = os.path.dirname(os.path.realpath(__file__)) + "/sample_structure"
 ```
 Or you can call `print_tree()` with args:  
 ```
+# Example.
+print_tree(root_path="..")
+
+# Example.
 print_tree(root_path=ROOT_PATH + "/sample_structure")
 ```
-Output:
+Output (for the `sample_structure` folder)::
 ```
 ├── 📁 sample_structure
 │   ├── 📄 sample_file
